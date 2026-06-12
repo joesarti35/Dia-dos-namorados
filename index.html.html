@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Você ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:Arial,sans-serif;overflow:hidden}
+#inicio{position:absolute;width:100%;height:100%;display:flex;justify-content:center;align-items:center}
+#btnIniciar{padding:20px 50px;font-size:24px;border:none;border-radius:50px;cursor:pointer}
+#conteudo{display:none;width:100vw;height:100vh}
+.frase{position:absolute;width:100%;top:50%;transform:translateY(-50%);text-align:center;font-size:2rem;padding:20px;opacity:0;transition:opacity 2s}
+#final{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity 3s}
+#final img{width:85%;max-width:1000px;border-radius:20px;box-shadow:0 0 30px rgba(255,255,255,.3);animation:zoomFoto 15s ease-in-out infinite alternate}
+@keyframes zoomFoto{from{transform:scale(1)}to{transform:scale(1.08)}}
+#titulo{margin-top:25px;font-size:2.5rem}
+#sub{margin-top:10px;font-size:1.2rem}
+#contador{margin-top:10px}
+.coracao{position:absolute;font-size:24px;animation:cair linear forwards}
+@keyframes cair{from{transform:translateY(-100px)}to{transform:translateY(110vh)}}
+#cartaBtn{margin-top:20px;padding:12px 30px;border:none;border-radius:30px;cursor:pointer;font-size:16px}
+#carta{display:none;margin-top:20px;width:80%;max-width:700px;text-align:center;line-height:1.8;font-size:18px}
+</style>
+</head>
+<body>
+<div id="inicio"><button id="btnIniciar" onclick="iniciar()">❤️ Clique Aqui ❤️</button></div>
+<audio id="musica" preload="auto" loop><source src="musica.mp3" type="audio/mpeg"></audio>
+<div id="conteudo">
+<div class="frase" id="f1">Dizem que algumas pessoas entram na nossa vida por acaso...</div>
+<div class="frase" id="f2">Mas eu acredito que o destino deu uma ajudinha.</div>
+<div class="frase" id="f3">Em meio ao Cidade Alta...</div>
+<div class="frase" id="f4">Eu encontrei alguém especial.</div>
+<div class="frase" id="f5">Minha streamer carioca gatinha e estressadinha favorita ❤️</div>
+<div class="frase" id="f6">E desde então...</div>
+<div class="frase" id="f7">Você se tornou minha pessoa favorita.</div>
+
+<div id="final">
+<img src="foto.jpg" alt="Nossa Foto">
+<div id="titulo">Eu Te Amo ❤️</div>
+<div id="sub">Obrigado por fazer parte da minha vida.</div>
+<div id="contador"></div>
+
+<button id="cartaBtn" onclick="abrirCarta()">💌 Abrir Carta</button>
+
+<div id="carta">
+Você entrou na minha vida de uma forma inesperada, mas se tornou uma das partes mais especiais dela.<br><br>
+Obrigado por cada conversa, cada risada e cada momento compartilhado.<br><br>
+Você é minha streamer carioca gatinha e estressadinha favorita ❤️<br><br>
+E independentemente da distância, quero continuar criando novas histórias ao seu lado.
+</div>
+</div>
+</div>
+
+<script>
+function abrirCarta(){document.getElementById("carta").style.display="block";}
+
+function chuvaCoracoes(){
+setInterval(()=>{
+const c=document.createElement("div");
+c.className="coracao";
+c.innerHTML="❤️";
+c.style.left=Math.random()*100+"vw";
+c.style.animationDuration=(Math.random()*4+4)+"s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),8000);
+},250);
+}
+
+const inicioHistoria=new Date("2025-01-01");
+setInterval(()=>{
+const dias=Math.floor((new Date()-inicioHistoria)/(1000*60*60*24));
+const el=document.getElementById("contador");
+if(el) el.innerHTML="❤️ "+dias+" dias de história juntos ❤️";
+},1000);
+
+async function iniciar(){
+document.getElementById("inicio").style.display="none";
+document.getElementById("conteudo").style.display="block";
+const musica=document.getElementById("musica");
+musica.volume=0.8;
+try{await musica.play();}catch(e){}
+chuvaCoracoes();
+const frases=["f1","f2","f3","f4","f5","f6","f7"];
+for(let id of frases){
+let el=document.getElementById(id);
+el.style.opacity="1";
+await new Promise(r=>setTimeout(r,4000));
+el.style.opacity="0";
+await new Promise(r=>setTimeout(r,1500));
+}
+document.getElementById("final").style.opacity="1";
+}
+</script>
+</body>
+</html>
